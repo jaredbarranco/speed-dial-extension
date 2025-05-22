@@ -1,0 +1,17 @@
+{
+  "name": "speed-dial-extension",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "esbuild src/newtab.ts src/options.ts --bundle --outdir=dist --format=esm --target=es2022",
+    "watch": "esbuild src/newtab.ts src/options.ts --bundle --outdir=dist --format=esm --target=es2022 --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/chrome": "^0.0.323",
+    "esbuild": "^0.25.4"
+  },
+  "description": ""
+}

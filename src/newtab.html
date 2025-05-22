@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Speed Dial</title>
+  <style>
+    #bookmark-container a {
+      font-size: 18px;
+      text-decoration: none;
+    }
+
+    #bookmark-container li {
+      margin-bottom: 6px;
+    }
+  </style>
+</head>
+<body>
+  <div style="display: flex; justify-content: space-between; align-items: center;">
+    <h1>Speed Dial</h1>
+    <a id="settings-link" title="Settings" style="text-decoration: none; font-size: 20px;">
+      <span id="settings-icon"></span>
+    </a>
+  </div>
+  <div id="bookmark-container"></div>
+  <script type="module" src="/dist/newtab.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,14 @@
+{
+  "manifest_version": 3,
+  "name": "Speed Dial - Open Source",
+  "version": "0.1",
+  "description": "A new tab page with bookmarks from a selected folder.",
+  "permissions": [
+    "bookmarks",
+    "storage"
+  ],
+  "chrome_url_overrides": {
+    "newtab": "src/newtab.html"
+  },
+  "options_page": "src/options.html"
+}
