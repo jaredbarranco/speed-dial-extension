@@ -1,4 +1,30 @@
 // src/newtab.ts
+function createBookmarkElement(bookmark) {
+  if (bookmark.url) {
+    const li = document.createElement("li");
+    const a = document.createElement("a");
+    a.href = bookmark.url;
+    a.textContent = bookmark.title || bookmark.url;
+    a.target = "_self";
+    li.appendChild(a);
+    return li;
+  } else {
+    const li = document.createElement("li");
+    const span = document.createElement("span");
+    span.textContent = bookmark.title;
+    span.style.fontWeight = "bold";
+    li.appendChild(span);
+    if (bookmark.children && bookmark.children.length > 0) {
+      const ul = document.createElement("ul");
+      for (const child of bookmark.children) {
+        const childEl = createBookmarkElement(child);
+        ul.appendChild(childEl);
+      }
+      li.appendChild(ul);
+    }
+    return li;
+  }
+}
 async function loadBookmarks() {
   const container = document.getElementById("bookmark-container");
   const settingsLink = document.getElementById("settings-link");
@@ -19,22 +45,16 @@ async function loadBookmarks() {
     container.innerText = "No folder selected. Visit the extension options to configure.";
     return;
   }
-  chrome.bookmarks.getChildren(selectedFolderId, (bookmarks) => {
-    if (bookmarks.length === 0) {
+  chrome.bookmarks.getSubTree(selectedFolderId, (results) => {
+    if (results.length === 0) {
       container.innerText = "This folder is empty.";
       return;
     }
+    const rootFolder = results[0];
     const ul = document.createElement("ul");
-    for (const bm of bookmarks) {
-      if (bm.url) {
-        const li = document.createElement("li");
-        const a = document.createElement("a");
-        a.href = bm.url;
-        a.textContent = bm.title || bm.url;
-        a.target = "_self";
-        li.appendChild(a);
-        ul.appendChild(li);
-      }
+    for (const child of rootFolder.children || []) {
+      const childEl = createBookmarkElement(child);
+      ul.appendChild(childEl);
     }
     container.appendChild(ul);
   });
