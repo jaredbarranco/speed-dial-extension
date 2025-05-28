@@ -70,3 +70,23 @@ async function loadBookmarks(folderId?: string) {
 }
 
 loadBookmarks();
+// Dark mode toggle logic
+const toggleButton = document.getElementById("theme-toggle") as HTMLButtonElement;
+
+function applyThemeFromStorage() {
+	const mode = localStorage.getItem("theme") || "light";
+	document.body.classList.toggle("dark-mode", mode === "dark");
+	if (toggleButton) {
+		toggleButton.textContent = mode === "dark" ? "☀️ Light Mode" : "🌙 Dark Mode";
+	}
+}
+
+toggleButton?.addEventListener("click", () => {
+	const isDark = document.body.classList.toggle("dark-mode");
+	localStorage.setItem("theme", isDark ? "dark" : "light");
+	if (toggleButton) {
+		toggleButton.textContent = isDark ? "☀️ Light Mode" : "🌙 Dark Mode";
+	}
+});
+
+applyThemeFromStorage();

@@ -56,3 +56,19 @@ async function loadBookmarks(folderId) {
   });
 }
 loadBookmarks();
+var toggleButton = document.getElementById("theme-toggle");
+function applyThemeFromStorage() {
+  const mode = localStorage.getItem("theme") || "light";
+  document.body.classList.toggle("dark-mode", mode === "dark");
+  if (toggleButton) {
+    toggleButton.textContent = mode === "dark" ? "\u2600\uFE0F Light Mode" : "\u{1F319} Dark Mode";
+  }
+}
+toggleButton?.addEventListener("click", () => {
+  const isDark = document.body.classList.toggle("dark-mode");
+  localStorage.setItem("theme", isDark ? "dark" : "light");
+  if (toggleButton) {
+    toggleButton.textContent = isDark ? "\u2600\uFE0F Light Mode" : "\u{1F319} Dark Mode";
+  }
+});
+applyThemeFromStorage();

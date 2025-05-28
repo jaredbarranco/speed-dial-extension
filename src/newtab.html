@@ -59,6 +59,54 @@
     .back-button:hover {
       background: #ddd;
     }
+
+    :root {
+      --bg-color: #ffffff;
+      --text-color: #000000;
+      --card-bg: white;
+      --border-color: #ccc;
+    }
+
+    body.dark-mode {
+      --bg-color: #1e1e1e;
+      --text-color: #f0f0f0;
+      --card-bg: #2a2a2a;
+      --border-color: #444;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .bookmark-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      color: var(--text-color);
+      transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    }
+
+    .back-button {
+      background: var(--card-bg);
+      color: var(--text-color);
+      border: 1px solid var(--border-color);
+    }
+
+    .back-button:hover {
+      background: #444;
+    }
+
+    .theme-toggle {
+      margin-left: 1em;
+      padding: 0.5em 1em;
+      font-size: 1em;
+      border-radius: 6px;
+      border: 1px solid var(--border-color);
+      background: var(--card-bg);
+      color: var(--text-color);
+      cursor: pointer;
+    }
   </style>
 </head>
 
@@ -68,6 +116,7 @@
     <a id="settings-link" title="Settings" style="text-decoration: none; font-size: 20px;">
       <span id="settings-icon"></span>
     </a>
+    <button id="theme-toggle" class="theme-toggle">🌙 Dark Mode</button>
   </div>
   <div id="bookmark-container"></div>
   <script type="module" src="/dist/newtab.js"></script>
