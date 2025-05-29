@@ -1,140 +1,118 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="visibility: hidden;">
 
 <head>
+  <script type="module" src="/dist/theme-loader.js"></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Speed Dial</title>
   <style>
-    #bookmark-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 1em;
-    }
-
-    .bookmark-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 1em;
-    }
-
-    .bookmark-card {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      border: 1px solid #ccc;
-      border-radius: 12px;
-      padding: 1em;
-      background: white;
-      box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
-      cursor: pointer;
-      transition: transform 0.1s ease;
-    }
-
-    .bookmark-card:hover {
-      transform: scale(1.02);
-    }
-
-    .bookmark-icon {
-      font-size: 3em;
-      margin-bottom: 0.5em;
-    }
-
-    .bookmark-title {
-      font-size: 1.1em;
-      text-align: center;
-      word-break: break-word;
-    }
-
-    .back-button {
-      margin-bottom: 1em;
-      font-size: 1em;
-      padding: 0.5em 1em;
-      background: #eee;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-
-    .back-button:hover {
-      background: #ddd;
-    }
-
-    :root {
-      --bg-color: #ffffff;
-      --text-color: #000000;
-      --card-bg: white;
-      --border-color: #ccc;
-    }
-
-    body.dark-mode {
-      background-color: #1e1e1e;
-      color: #f0f0f0;
-    }
-
-    body.dark-mode .bookmark-card {
-      background: #2c2c2c;
-      border-color: #444;
-      color: #f0f0f0;
-    }
-
-    body.dark-mode .top-button {
-      background: #333;
-      color: #eee;
-    }
-
-    body.dark-mode .top-button:hover {
-      background: #444;
+    /* === General Defaults === */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: sans-serif;
     }
 
     body {
-      background-color: var(--bg-color);
-      color: var(--text-color);
-      transition: background-color 0.3s ease, color 0.3s ease;
+      padding: 1em;
+      transition: background-color 0.3s, color 0.3s;
     }
 
-    .bookmark-card {
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      color: var(--text-color);
-      transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
-    }
-
-    .back-button {
-      background: var(--card-bg);
-      color: var(--text-color);
-      border: 1px solid var(--border-color);
-    }
-
-    .back-button:hover {
-      background: #444;
-    }
-
-    .theme-toggle {
-      margin-left: 1em;
-      padding: 0.5em 1em;
-      font-size: 1em;
-      border-radius: 6px;
-      border: 1px solid var(--border-color);
-      background: var(--card-bg);
-      color: var(--text-color);
-      cursor: pointer;
+    h1 {
+      font-size: 1.5em;
+      font-weight: bold;
     }
 
     .top-button {
-      font-size: 0.9em;
+      font-size: 1rem;
       padding: 0.5em 1em;
-      background: #eee;
       border: none;
       border-radius: 6px;
       cursor: pointer;
-      transition: background 0.2s;
-      text-decoration: none;
-      color: inherit;
+      font-size: 0.9em;
+      transition: background-color 0.3s, color 0.3s;
     }
 
-    .top-button:hover {
-      background: #ddd;
+    html {
+      font-size: 16px;
+    }
+
+    body {
+      font-size: 1rem;
+      /* 16px */
+    }
+
+    /* === Bookmark Card Styles === */
+    #bookmark-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      padding: 20px;
+      justify-content: flex-start;
+      /* Align items to the left */
+    }
+
+    .bookmark-icon {
+      font-size: 4rem;
+    }
+
+    .bookmark {
+      background-color: #f0f0f0;
+      font-size: .9rem;
+      color: #000;
+      border-radius: 12px;
+      width: 160px;
+      height: 160px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    /* === Light Mode Styles === */
+    .light-mode body {
+      background-color: #ffffff;
+      color: #000000;
+    }
+
+    .light-mode .top-button {
+      background-color: #eeeeee;
+      color: #000000;
+    }
+
+    .light-mode .bookmark {
+      background-color: #f0f0f0;
+      color: #000;
+    }
+
+    /* === Dark Mode Styles === */
+    .dark-mode body {
+      background-color: #121212;
+      color: #ffffff;
+    }
+
+    .dark-mode .top-button {
+      background-color: #333333;
+      color: #ffffff;
+    }
+
+    .dark-mode .bookmark {
+      background-color: #1e1e1e;
+      color: #ffffff;
+    }
+
+    /* Optional: Make links within bookmarks inherit theme */
+    .bookmark a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .bookmark:hover {
+      transform: scale(1.02);
     }
   </style>
 </head>

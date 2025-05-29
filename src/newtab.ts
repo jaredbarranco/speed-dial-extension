@@ -2,7 +2,7 @@ const folderHistory: string[] = [];
 
 function createBookmarkCard(bookmark: chrome.bookmarks.BookmarkTreeNode): HTMLElement {
 	const card = document.createElement("div");
-	card.className = "bookmark-card";
+	card.className = "bookmark";
 
 	const icon = document.createElement("div");
 	icon.className = "bookmark-icon";
@@ -29,6 +29,7 @@ function createBookmarkCard(bookmark: chrome.bookmarks.BookmarkTreeNode): HTMLEl
 	return card;
 }
 
+
 async function loadBookmarks(folderId?: string) {
 	const container = document.getElementById("bookmark-container")!;
 	container.innerHTML = ""; // Clear current view
@@ -49,7 +50,7 @@ async function loadBookmarks(folderId?: string) {
 		if (folderHistory.length > 0) {
 			const backButton = document.createElement("button");
 			backButton.textContent = "← Back";
-			backButton.className = "bookmark-card";
+			backButton.className = "bookmark";
 			backButton.onclick = () => {
 				const prevFolderId = folderHistory.pop();
 				if (prevFolderId) loadBookmarks(prevFolderId);
@@ -57,21 +58,16 @@ async function loadBookmarks(folderId?: string) {
 			container.appendChild(backButton);
 		}
 
-		const grid = document.createElement("div");
-		grid.className = "bookmark-grid";
-
+		// Append each bookmark directly to the container
 		for (const child of children) {
 			const card = createBookmarkCard(child);
-			grid.appendChild(card);
+			container.appendChild(card);
 		}
-
-		container.appendChild(grid);
 	});
 }
-
 loadBookmarks();
 // Dark mode toggle logic
-const toggleButton = document.getElementById("theme-toggle") as HTMLButtonElement;
+const toggleButton = document.getElementById("theme-toggle");
 
 function applyThemeFromStorage() {
 	const mode = localStorage.getItem("theme") || "light";
@@ -82,11 +78,9 @@ function applyThemeFromStorage() {
 }
 
 toggleButton?.addEventListener("click", () => {
-	const isDark = document.body.classList.toggle("dark-mode");
+	const root = document.documentElement;
+	const isDark = root.classList.toggle("dark-mode");
 	localStorage.setItem("theme", isDark ? "dark" : "light");
-	if (toggleButton) {
-		toggleButton.textContent = isDark ? "☀️ Light Mode" : "🌙 Dark Mode";
-	}
 });
 
 applyThemeFromStorage();
