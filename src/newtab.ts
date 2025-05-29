@@ -6,11 +6,28 @@ function createBookmarkCard(bookmark: chrome.bookmarks.BookmarkTreeNode): HTMLEl
 
 	const icon = document.createElement("div");
 	icon.className = "bookmark-icon";
-	icon.textContent = bookmark.url ? "🌐" : "📁";
 
 	const title = document.createElement("div");
 	title.className = "bookmark-title";
-	title.textContent = bookmark.title || (bookmark.url ?? "Untitled");
+
+	let name = bookmark.title || (bookmark.url ?? "Untitled");
+
+	if (bookmark.url) {
+		// Look for emoji at end of the title
+		const emojiRegex = /\p{Emoji_Presentation}|\p{Emoji}\uFE0F$/gu;
+		const emojiMatch = Array.from(name.matchAll(emojiRegex)).pop();
+
+		if (emojiMatch && name.endsWith(emojiMatch[0])) {
+			icon.textContent = emojiMatch[0];
+			name = name.slice(0, name.lastIndexOf(emojiMatch[0])).trim();
+		} else {
+			icon.textContent = "🌐"; // default web icon
+		}
+	} else {
+		icon.textContent = "📁"; // always folder icon for non-URLs
+	}
+
+	title.textContent = name;
 
 	card.appendChild(icon);
 	card.appendChild(title);
@@ -41,6 +58,10 @@ async function loadBookmarks(folderId?: string) {
 	}
 
 	chrome.bookmarks.getChildren(currentFolderId, (children) => {
+		// Sort by the 'index' property to maintain user order
+		console.log(JSON.stringify(children))
+		children.sort((a, b) => (a.index ?? 0) - (b.index ?? 0));
+
 		if (!children.length) {
 			container.textContent = "This folder is empty.";
 			return;
@@ -58,7 +79,6 @@ async function loadBookmarks(folderId?: string) {
 			container.appendChild(backButton);
 		}
 
-		// Append each bookmark directly to the container
 		for (const child of children) {
 			const card = createBookmarkCard(child);
 			container.appendChild(card);
