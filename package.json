@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "build": "esbuild src/newtab.ts src/options.ts --bundle --outdir=dist --format=esm --target=es2022",
-    "watch": "esbuild src/newtab.ts src/options.ts --bundle --outdir=dist --format=esm --target=es2022 --watch"
+    "build": "esbuild src/newtab.ts src/options.ts src/theme-loader.ts --bundle --outdir=dist --format=esm --target=es2022",
+    "watch": "esbuild src/newtab.ts src/options.ts src/theme-loader.ts --bundle --outdir=dist --format=esm --target=es2022 --watch"
   },
   "keywords": [],
   "author": "",
