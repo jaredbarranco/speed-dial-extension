@@ -1,4 +1,4 @@
-(() => {
+(function() {
 	try {
 		const userPref = localStorage.getItem("theme");
 		const systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
@@ -9,10 +9,8 @@
 			document.documentElement.classList.remove("dark-mode");
 		}
 	} catch (e) {
-		console.error("Theme loader error:", e);
+		console.error("Theme preload error:", e);
 	}
 
-	// Ensure the page becomes visible
 	document.documentElement.style.visibility = "visible";
 })();
-
