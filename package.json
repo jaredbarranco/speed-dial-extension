@@ -1,6 +1,6 @@
 {
   "name": "speed-dial-extension",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "index.js",
   "scripts": {
     "build": "esbuild src/newtab.ts src/options.ts src/theme-loader.ts --bundle --outdir=dist --format=esm --target=es2022",
