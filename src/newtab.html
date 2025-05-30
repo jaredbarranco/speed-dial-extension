@@ -49,10 +49,12 @@
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
       gap: 1rem;
-      justify-content: start;
-      /* Align left */
+      justify-content: center;
+      /* Center the grid items */
       max-width: calc(6 * 160px + 5 * 1rem);
-      /* 5 columns + 4 gaps */
+      /* Optional: control max grid width */
+      margin: 0 auto;
+      /* Center the whole container in its parent */
     }
 
     .bookmark-icon {
